@@ -42,7 +42,11 @@ Scope {
                 } catch(e) {}
             }
         }
-        onFailed: { /* first run — no position file yet */ }
+        onExited: (exitCode, exitStatus) => {
+            if (exitCode !== 0) {
+                /* first run — no position file yet */
+            }
+        }
     }
 
     // ── Hotkey profiles loader ────────────────────────────────
@@ -261,7 +265,7 @@ Scope {
                                 text: modelData.name ?? ""
                                 color: Theme.onSurfaceVariant
                                 font.pixelSize: Theme.sectionFontSize
-                                font.uppercase: true
+                                font.capitalization: Font.AllUppercase
                                 leftPadding: 2
                             }
 

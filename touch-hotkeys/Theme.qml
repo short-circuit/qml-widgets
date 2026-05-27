@@ -108,8 +108,10 @@ Singleton {
                 }
             }
         }
-        onFailed: {
-            console.log("touch-hotkeys: theme file not found, using defaults");
+        onExited: (exitCode, exitStatus) => {
+            if (exitCode !== 0) {
+                console.log("touch-hotkeys: theme file not found, using defaults");
+            }
         }
     }
 
