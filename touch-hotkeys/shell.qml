@@ -154,28 +154,41 @@ Scope {
         var order = ["bottom", "left", "right"];
         var idx = order.indexOf(dockEdge);
         dockEdge = order[(idx + 1) % order.length];
+        applyAnchors(dockEdge);
         savePosition();
     }
+
+    function applyAnchors(pos) {
+        panel.anchors.bottom = pos === "bottom";
+        panel.anchors.left   = pos !== "right";
+        panel.anchors.right  = pos !== "left";
+        panel.anchors.top    = pos !== "bottom";
+
+        // Adjust size for each position
+        if (pos === "bottom") {
+            panel.implicitWidth = 800;
+            panel.implicitHeight = 60;
+        } else {
+            panel.implicitWidth = 320;
+            panel.implicitHeight = 400;
+        }
+    }
+
+    Component.onCompleted: applyAnchors(dockEdge)
 
     // ── Main panel ────────────────────────────────────────────
     PanelWindow {
         id: panel
 
-        exclusiveZone: 0
+        exclusionMode: ExclusionMode.Auto
         WlrLayershell.namespace: "touch-hotkeys:bar"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-        WlrLayershell.anchors {
-            bottom: dockEdge === "bottom"
-            left:   dockEdge !== "right"
-            right:  dockEdge !== "left"
-            top:    dockEdge !== "bottom"
-        }
-        color: "transparent"
-        visible: hotkeyVisible
+        color: "#40ff0000"
+        visible: true
 
-        implicitWidth: dockEdge === "bottom" ? (parent?.width ?? 800) : 320
-        implicitHeight: dockEdge === "bottom" ? content.implicitHeight + Theme.padding * 2 : 400
+        implicitWidth: 800
+        implicitHeight: 60
 
         // ── Background ────────────────────────────────────────
         Rectangle {
