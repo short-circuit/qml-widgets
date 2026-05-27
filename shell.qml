@@ -35,7 +35,7 @@ Scope {
             onPositionChanged: (mouse) => {
                 if (oskTrigger.armed && mouse.y - oskTrigger.startY < -80) {
                     oskTrigger.armed = false;
-                    toggleOsk.start();
+                    toggleOsk.running = true;
                 }
             }
             onReleased: {
@@ -87,11 +87,11 @@ Scope {
 
                 while (volumeControl.accum >= 25) {
                     volumeControl.accum -= 25;
-                    volUp.start();
+                    volUp.running = true;
                 }
                 while (volumeControl.accum <= -25) {
                     volumeControl.accum += 25;
-                    volDown.start();
+                    volDown.running = true;
                 }
             }
             onReleased: {
@@ -149,11 +149,11 @@ Scope {
 
                 while (brightnessControl.accum >= 30) {
                     brightnessControl.accum -= 30;
-                    briUp.start();
+                    briUp.running = true;
                 }
                 while (brightnessControl.accum <= -30) {
                     brightnessControl.accum += 30;
-                    briDown.start();
+                    briDown.running = true;
                 }
             }
             onReleased: {
