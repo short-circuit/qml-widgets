@@ -154,30 +154,11 @@ Scope {
         var order = ["bottom", "left", "right"];
         var idx = order.indexOf(dockEdge);
         dockEdge = order[(idx + 1) % order.length];
-        applyAnchors(dockEdge);
         savePosition();
     }
 
-    function applyAnchors(pos) {
-        panel.anchors.bottom = pos === "bottom";
-        panel.anchors.left   = pos !== "right";
-        panel.anchors.right  = pos !== "left";
-        panel.anchors.top    = pos !== "bottom";
-
-        // Adjust size and exclusive zone for each position
-        panel.exclusiveZone = 0; // force re-set even if value is same
-        if (pos === "bottom") {
-            panel.implicitWidth = 800;
-            panel.implicitHeight = 60;
-            panel.exclusiveZone = 60;
-        } else {
-            panel.implicitWidth = 320;
-            panel.implicitHeight = 400;
-            panel.exclusiveZone = 320;
-        }
-    }
-
-    Component.onCompleted: applyAnchors(dockEdge)
+    function panelHeight() { return 60; }
+    function panelWidth() { return 320; }
 
     // ── Main panel ────────────────────────────────────────────
     PanelWindow {
@@ -189,8 +170,16 @@ Scope {
         color: "#40ff0000"
         visible: true
 
-        implicitWidth: 800
-        implicitHeight: 60
+        anchors {
+            bottom: dockEdge === "bottom"
+            left:   dockEdge !== "right"
+            right:  dockEdge !== "left"
+            top:    dockEdge !== "bottom"
+        }
+
+        exclusiveZone: dockEdge === "bottom" ? panelHeight() : panelWidth()
+        implicitWidth: dockEdge === "bottom" ? 800 : 320
+        implicitHeight: dockEdge === "bottom" ? 60 : 400
 
         // ── Background ────────────────────────────────────────
         Rectangle {
