@@ -16,6 +16,7 @@ Scope {
             right: true
         }
 
+        exclusiveZone: 0
         implicitHeight: 25
         WlrLayershell.namespace: "touch-widgets:osk"
         WlrLayershell.layer: WlrLayer.Overlay
@@ -28,17 +29,17 @@ Scope {
         MouseArea {
             anchors.fill: parent
             onPressed: (mouse) => {
-                startY = mouse.y;
-                armed = true;
+                oskTrigger.startY = mouse.y;
+                oskTrigger.armed = true;
             }
             onPositionChanged: (mouse) => {
-                if (armed && mouse.y - startY < -80) {
-                    armed = false;
+                if (oskTrigger.armed && mouse.y - oskTrigger.startY < -80) {
+                    oskTrigger.armed = false;
                     toggleOsk.start();
                 }
             }
             onReleased: {
-                armed = false;
+                oskTrigger.armed = false;
             }
         }
 
@@ -59,6 +60,7 @@ Scope {
             bottom: true
         }
 
+        exclusiveZone: 0
         implicitWidth: 18
         WlrLayershell.namespace: "touch-widgets:volume"
         WlrLayershell.layer: WlrLayer.Overlay
@@ -72,28 +74,28 @@ Scope {
         MouseArea {
             anchors.fill: parent
             onPressed: (mouse) => {
-                lastY = mouse.y;
-                accum = 0;
-                active = true;
+                volumeControl.lastY = mouse.y;
+                volumeControl.accum = 0;
+                volumeControl.active = true;
             }
             onPositionChanged: (mouse) => {
-                if (!active)
+                if (!volumeControl.active)
                     return;
-                var delta = lastY - mouse.y;
-                accum += delta;
-                lastY = mouse.y;
+                var delta = volumeControl.lastY - mouse.y;
+                volumeControl.accum += delta;
+                volumeControl.lastY = mouse.y;
 
-                while (accum >= 25) {
-                    accum -= 25;
+                while (volumeControl.accum >= 25) {
+                    volumeControl.accum -= 25;
                     volUp.start();
                 }
-                while (accum <= -25) {
-                    accum += 25;
+                while (volumeControl.accum <= -25) {
+                    volumeControl.accum += 25;
                     volDown.start();
                 }
             }
             onReleased: {
-                active = false;
+                volumeControl.active = false;
             }
         }
 
@@ -120,6 +122,7 @@ Scope {
             right: true
         }
 
+        exclusiveZone: 0
         implicitHeight: 18
         WlrLayershell.namespace: "touch-widgets:brightness"
         WlrLayershell.layer: WlrLayer.Overlay
@@ -133,28 +136,28 @@ Scope {
         MouseArea {
             anchors.fill: parent
             onPressed: (mouse) => {
-                lastX = mouse.x;
-                accum = 0;
-                active = true;
+                brightnessControl.lastX = mouse.x;
+                brightnessControl.accum = 0;
+                brightnessControl.active = true;
             }
             onPositionChanged: (mouse) => {
-                if (!active)
+                if (!brightnessControl.active)
                     return;
-                var delta = mouse.x - lastX;
-                accum += delta;
-                lastX = mouse.x;
+                var delta = mouse.x - brightnessControl.lastX;
+                brightnessControl.accum += delta;
+                brightnessControl.lastX = mouse.x;
 
-                while (accum >= 30) {
-                    accum -= 30;
+                while (brightnessControl.accum >= 30) {
+                    brightnessControl.accum -= 30;
                     briUp.start();
                 }
-                while (accum <= -30) {
-                    accum += 30;
+                while (brightnessControl.accum <= -30) {
+                    brightnessControl.accum += 30;
                     briDown.start();
                 }
             }
             onReleased: {
-                active = false;
+                brightnessControl.active = false;
             }
         }
 
