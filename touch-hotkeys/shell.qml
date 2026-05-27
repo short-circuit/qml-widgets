@@ -18,12 +18,14 @@ Scope {
 
     // ── Position persistence ──────────────────────────────────
     function savePosition() {
-        saver.command: ["mkdir", "-p",
-            Quickshell.environmentVariables["HOME"] + "/.local/state/touch-hotkeys"]
-        saver.running = true
-        saver.command: ["sh", "-c",
-            "cat > " + positionFile + " <<< '" + JSON.stringify({edge: dockEdge}) + "'"]
-        saver.running = true
+        var dir = Quickshell.environmentVariables["HOME"] + "/.local/state/touch-hotkeys";
+        var json = JSON.stringify({edge: dockEdge});
+        // Single sh -c command: pass values as positional args ($1, $2, $3)
+        // to avoid shell injection from JSON content
+        saver.command = ["sh", "-c",
+            "mkdir -p \"$1\" && printf '%s' \"$2\" > \"$3\"",
+            "sh", dir, json, positionFile];
+        saver.running = true;
     }
 
     Process { id: saver; running: false }
@@ -54,6 +56,7 @@ Scope {
                 try {
                     var d = JSON.parse(this.text.trim());
                     root.profiles = d.profiles || {};
+                    root.updateProfile(); // re-evaluate for current window
                 } catch(e) {
                     console.log("touch-hotkeys: failed to parse profiles:", e);
                 }
