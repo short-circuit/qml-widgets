@@ -148,9 +148,10 @@ Scope {
         id: panel
 
         anchors {
-            bottom: dockEdge === "bottom" ? parent.bottom : undefined
-            left:   dockEdge === "left"   ? parent.left   : undefined
-            right:  dockEdge === "right"  ? parent.right  : undefined
+            bottom: dockEdge === "bottom" ? true : false
+            left:   dockEdge !== "right"  ? true : false
+            right:  dockEdge !== "left"   ? true : false
+            top:    dockEdge !== "bottom" ? true : false
         }
 
         exclusiveZone: 0
