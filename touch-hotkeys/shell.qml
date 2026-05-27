@@ -15,13 +15,6 @@ Scope {
     property var profiles: ({})
     property var positionFile: Quickshell.environmentVariables["HOME"] +
         "/.local/state/touch-hotkeys/position.json"
-    // Computed anchor state — bound directly to WlrLayershell.anchors
-    property var panelAnchors: ({
-        left:   dockEdge !== "right",
-        right:  dockEdge !== "left",
-        top:    dockEdge !== "bottom",
-        bottom: dockEdge === "bottom"
-    })
 
     // ── Position persistence ──────────────────────────────────
     function savePosition() {
@@ -158,9 +151,14 @@ Scope {
         WlrLayershell.namespace: "touch-hotkeys:bar"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+        WlrLayershell.anchors {
+            bottom: dockEdge === "bottom"
+            left:   dockEdge !== "right"
+            right:  dockEdge !== "left"
+            top:    dockEdge !== "bottom"
+        }
         color: "transparent"
         visible: hotkeyVisible
-        WlrLayershell.anchors: root.panelAnchors
 
         implicitWidth: dockEdge === "bottom" ? (parent?.width ?? 800) : 320
         implicitHeight: dockEdge === "bottom" ? content.implicitHeight + Theme.padding * 2 : 400
