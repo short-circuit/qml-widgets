@@ -66,8 +66,8 @@ Singleton {
     }
 
     function loadColors() {
-        var path = colorFilePath;
-        reader.command = ["cat", path];
+        reader.command = ["sh", "-c",
+            "test -f \"$1\" && cat \"$1\" || true", "sh", colorFilePath];
         reader.running = true;
     }
 
@@ -102,6 +102,7 @@ Singleton {
                     if (text.length > 0) {
                         var json = JSON.parse(text);
                         theme.applyColors(json);
+                        theme._found = true;
                     }
                 } catch (e) {
                     console.log("touch-hotkeys: failed to parse theme colors:", e);
@@ -110,10 +111,15 @@ Singleton {
         }
         onExited: (exitCode, exitStatus) => {
             if (exitCode !== 0) {
-                console.log("touch-hotkeys: theme file not found, using defaults");
+                if (!theme._found) {
+                    console.log("touch-hotkeys: theme file not found, using defaults");
+                    theme._found = true; // log once, then stop spamming
+                }
             }
         }
     }
+
+    property bool _found: false
 
     Timer {
         id: reloadTimer
