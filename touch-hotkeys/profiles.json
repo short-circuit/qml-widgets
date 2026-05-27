@@ -1,0 +1,116 @@
+{
+  "profiles": {
+    "blender": {
+      "label": "Blender",
+      "sections": [
+        {
+          "name": "Transform",
+          "buttons": [
+            { "label": "Grab",    "keys": [22] },
+            { "label": "Rotate",  "keys": [19] },
+            { "label": "Scale",   "keys": [31] },
+            { "label": "Move",    "keys": [46] }
+          ]
+        },
+        {
+          "name": "Edit",
+          "buttons": [
+            { "label": "Extrude",   "keys": [18] },
+            { "label": "Loop Cut",  "keys": [29, 19] },
+            { "label": "Delete",    "keys": [52] },
+            { "label": "Undo",      "keys": [29, 22] }
+          ]
+        },
+        {
+          "name": "View",
+          "buttons": [
+            { "label": "Side",    "keys": [29, 3] },
+            { "label": "Front",   "keys": [29, 5] },
+            { "label": "Top",     "keys": [29, 7] },
+            { "label": "Camera",  "keys": [29, 8] }
+          ]
+        }
+      ]
+    },
+    "freecad": {
+      "label": "FreeCAD",
+      "sections": [
+        {
+          "name": "Part",
+          "buttons": [
+            { "label": "Pad",      "keys": [29, 31] },
+            { "label": "Pocket",   "keys": [29, 32] },
+            { "label": "Revolve",  "keys": [29, 19] }
+          ]
+        },
+        {
+          "name": "Sketch",
+          "buttons": [
+            { "label": "Line",       "keys": [46] },
+            { "label": "Rectangle",  "keys": [19] },
+            { "label": "Circle",     "keys": [12] },
+            { "label": "Constrain",  "keys": [29, 31] }
+          ]
+        }
+      ]
+    },
+    "kitty": {
+      "label": "Kitty",
+      "sections": [
+        {
+          "name": "Tabs",
+          "buttons": [
+            { "label": "New Tab",   "keys": [29, 56, 20] },
+            { "label": "Prev Tab",  "keys": [29, 56, 105] },
+            { "label": "Next Tab",  "keys": [29, 56, 106] },
+            { "label": "Close",     "keys": [29, 56, 27] }
+          ]
+        },
+        {
+          "name": "Window",
+          "buttons": [
+            { "label": "Split H",  "keys": [29, 56, 39] },
+            { "label": "Split V",  "keys": [29, 56, 33] },
+            { "label": "Neighbor", "keys": [29, 56, 23] }
+          ]
+        }
+      ]
+    },
+    "org.gimp.gimp": {
+      "label": "GIMP",
+      "sections": [
+        {
+          "name": "Tools",
+          "buttons": [
+            { "label": "Brush",    "keys": [32] },
+            { "label": "Eraser",   "keys": [33] },
+            { "label": "Fill",     "keys": [41] },
+            { "label": "Text",     "keys": [45] }
+          ]
+        }
+      ]
+    },
+    "firefox": {
+      "label": "Firefox",
+      "sections": [
+        {
+          "name": "Nav",
+          "buttons": [
+            { "label": "Tab",       "keys": [29, 20] },
+            { "label": "Close Tab", "keys": [29, 27] },
+            { "label": "Reopen",    "keys": [29, 56, 20] },
+            { "label": "Reload",    "keys": [29, 19] }
+          ]
+        },
+        {
+          "name": "Page",
+          "buttons": [
+            { "label": "Find",   "keys": [29, 33] },
+            { "label": "Zoom+",  "keys": [29, 18] },
+            { "label": "Zoom-",  "keys": [29, 31] }
+          ]
+        }
+      ]
+    }
+  }
+}

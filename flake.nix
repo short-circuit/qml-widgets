@@ -1,5 +1,5 @@
 {
-  description = "Quickshell touch gesture widgets — edge-swipe OSK, volume, brightness";
+  description = "Quickshell touch gesture widgets — edge-swipe OSK, volume, brightness, hotkey bar";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -16,6 +16,7 @@
       installPhase = ''
         mkdir -p $out/share/qml-touch-widgets
         cp shell.qml $out/share/qml-touch-widgets/
+        cp -r touch-hotkeys $out/share/qml-touch-widgets/touch-hotkeys
         cp README.md $out/share/qml-touch-widgets/ 2>/dev/null || true
       '';
     };
