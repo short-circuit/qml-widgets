@@ -183,7 +183,7 @@ Scope {
         id: panel
 
         WlrLayershell.namespace: "touch-hotkeys:bar"
-        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
         color: "#40ff0000"
         visible: true
