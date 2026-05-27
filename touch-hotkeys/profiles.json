@@ -1,5 +1,19 @@
 {
   "profiles": {
+    "foot": {
+      "label": "Terminal",
+      "sections": [
+        {
+          "name": "Actions",
+          "buttons": [
+            { "label": "New Win", "keys": [29, 56, 20] },
+            { "label": "Copy",    "keys": [29, 56, 24] },
+            { "label": "Paste",   "keys": [29, 56, 25] },
+            { "label": "Search",  "keys": [29, 56, 19] }
+          ]
+        }
+      ]
+    },
     "blender": {
       "label": "Blender",
       "sections": [

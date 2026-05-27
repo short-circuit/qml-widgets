@@ -52,18 +52,28 @@ Scope {
     // ── Hotkey profiles loader ────────────────────────────────
     Process {
         id: profileLoader
-        command: ["cat", Quickshell.environmentVariables["HOME"] +
-            "/.config/quickshell/touch-hotkeys/profiles.json"]
+        command: ["sh", "-c",
+            "cat \"$HOME/.config/quickshell/touch-hotkeys/profiles.json\" 2>/dev/null || " +
+            "cat \"touch-hotkeys/profiles.json\" 2>/dev/null || " +
+            "echo '{}'"]
         running: true
         stdout: StdioCollector {
             onStreamFinished: {
                 try {
-                    var d = JSON.parse(this.text.trim());
-                    root.profiles = d.profiles || {};
+                    var text = this.text.trim();
+                    if (text.length > 0) {
+                        var d = JSON.parse(text);
+                        root.profiles = d.profiles || {};
+                    }
                     root.updateProfile(); // re-evaluate for current window
                 } catch(e) {
                     console.log("touch-hotkeys: failed to parse profiles:", e);
                 }
+            }
+        }
+        onExited: (exitCode, exitStatus) => {
+            if (exitCode !== 0) {
+                console.log("touch-hotkeys: profiles.json not found, no profiles loaded");
             }
         }
     }
@@ -117,6 +127,10 @@ Scope {
                     break;
                 }
             }
+        }
+        // Fallback: use _default profile if none matched
+        if (!profile && profiles["_default"]) {
+            profile = profiles["_default"];
         }
         currentProfile = profile;
     }
