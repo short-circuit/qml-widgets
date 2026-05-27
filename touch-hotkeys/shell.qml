@@ -165,6 +165,7 @@ Scope {
         panel.anchors.top    = pos !== "bottom";
 
         // Adjust size and exclusive zone for each position
+        panel.exclusiveZone = 0; // force re-set even if value is same
         if (pos === "bottom") {
             panel.implicitWidth = 800;
             panel.implicitHeight = 60;
