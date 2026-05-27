@@ -164,13 +164,15 @@ Scope {
         panel.anchors.right  = pos !== "left";
         panel.anchors.top    = pos !== "bottom";
 
-        // Adjust size for each position
+        // Adjust size and exclusive zone for each position
         if (pos === "bottom") {
             panel.implicitWidth = 800;
             panel.implicitHeight = 60;
+            panel.exclusiveZone = 60;
         } else {
             panel.implicitWidth = 320;
             panel.implicitHeight = 400;
+            panel.exclusiveZone = 320;
         }
     }
 
@@ -180,7 +182,6 @@ Scope {
     PanelWindow {
         id: panel
 
-        exclusionMode: ExclusionMode.Auto
         WlrLayershell.namespace: "touch-hotkeys:bar"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
