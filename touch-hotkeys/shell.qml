@@ -168,7 +168,7 @@ Scope {
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
         color: "#40ff0000"
-        visible: true
+        visible: root.hotkeyVisible
 
         anchors {
             bottom: dockEdge === "bottom"
